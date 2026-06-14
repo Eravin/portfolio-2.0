@@ -159,6 +159,17 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
 .msg.me .tag { flex-direction: row-reverse; }
 .msg.me .bubble { background: var(--fill); border: 1px solid var(--fill); color: var(--fill-fg); }
 
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(12px);
+  background: var(--fill); color: var(--fill-fg);
+  font-family: 'Founders Grotesk Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 10px 18px; pointer-events: none;
+  opacity: 0; transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 100; white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
 /* ── CYCLING WORD ── */
 .word-cycle { display: inline-block; position: relative; overflow: hidden; vertical-align: text-bottom; line-height: 1.2em; height: 1.2em; }
 .word-slide { display: inline-block; color: var(--accent); white-space: nowrap; }
@@ -250,6 +261,7 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
 </head>
 <body data-theme="dark">
 
+<div class="toast" id="toast"></div>
 <div class="room">
   <div class="unit">
     <div class="panel">
@@ -276,7 +288,7 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
             </div>
           </div>
           <div class="actions">
-            <button class="ico" title="Email" aria-label="Email" onclick="window.location.href='mailto:arvin@arvin.design'">
+            <button class="ico" id="emailBtn" title="Copy email" aria-label="Copy email address">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
             </button>
             <button class="ico" title="Menu" aria-label="Menu">
@@ -299,6 +311,30 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
   var log  = document.getElementById('log');
   var quick = document.getElementById('quick');
   var themeToggle = document.getElementById('themeToggle');
+  var toast = document.getElementById('toast');
+  var toastTimer;
+
+  /* ── Toast ── */
+  function showToast(msg) {
+    clearTimeout(toastTimer);
+    toast.textContent = msg;
+    toast.classList.add('show');
+    toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+  }
+
+  /* ── Email → clipboard ── */
+  document.getElementById('emailBtn').addEventListener('click', function () {
+    var email = 'arvin@arvin.design';
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(email).then(function () { showToast('Email copied'); });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = email; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); showToast('Email copied'); } catch (e) {}
+      document.body.removeChild(ta);
+    }
+  });
 
   /* ── Theme ── */
   function applyTheme(t) {
@@ -408,6 +444,7 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       var a = document.createElement('a');
       a.className = 'dl'; a.textContent = m[1]; a.href = m[2];
       a.setAttribute('download', ''); a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener');
+      a.addEventListener('click', function (e) { e.preventDefault(); showToast('Coming soon'); });
       el.appendChild(a);
       last = m.index + m[0].length;
     }
