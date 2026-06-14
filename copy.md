@@ -37,8 +37,8 @@ Or select the prompt below to experience a conversation.
 # The chips appear in the order they are listed here.
 
 ### Tell me a bit more about yourself
-I'm a product designer..
-with a background spanning various disciplines. For as far as I can remember, I've always been involved in some phase of design, from graphic interface to my current focus on experience and service design. — I've worked behind some of the most pioneering technologies in this region and have had the privilege to lead the teams behind them. 
+I'm a product designer with a background spanning various disciplines. 
+For as far as I can remember, I've always been involved in some phase of design, from graphic interface to my current focus on experience and service design. — I've worked behind some of the most pioneering technologies in this region and have had the privilege to lead the teams behind them. 
 
 ### What's your scope of work?
 I can execute large scale projects or lead in-house teams, the full range, I hire, I grow teams, I build the operating frameworks that make design a revenue enabler inside organisations. 
