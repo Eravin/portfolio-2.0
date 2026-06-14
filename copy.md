@@ -42,7 +42,7 @@ with a background spanning various disciplines. For as far as I can remember, I'
 
 ### What's your scope of work?
 I can execute large scale projects or lead in-house teams, the full range, I hire, I grow teams, I build the operating frameworks that make design a revenue enabler inside organisations. 
-I view good design as strategic advantage at any scale.
+I view good design as a strategic advantage at any scale.
 
 ### What does that look like in practice?
 At PNB — Malaysia's largest asset manager — I built the CX department from the ground up. Governance, measurement, cross-departmental ownership and product design.
