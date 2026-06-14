@@ -52,7 +52,7 @@ We boosted our NPS +15 and baselined a CSAT of 88.56% across digital, branch, an
 Jewel Digital — the innovation arm of that same institution. Built the product design org from zero. Designers, researchers, CX specialists.
 We were designing for 15 million target users. Investment platforms, onboarding, account management, design systems — the whole ecosystem.
 
-### And before..before that?
+### Keep going.
 At Maybank I led UX on MAE and Maybank2U — the most widely used banking apps in Malaysia.
 Before that, Fave — commerce and payments across Malaysia, Singapore and Indonesia. And earlier, dahmakan, a YC-backed food delivery startup where I was the product designer.
 
@@ -62,7 +62,8 @@ I've done both ends.
 The scrappy zero-to-one phase and the scaling-inside-a-giant phase. Different problems, same discipline.
 
 ### What exactly do you offer?
-CX strategy. Product design. Service design. Design ops. Research — both product and concept. Prototyping and validation. Coaching and training.
+CX strategy. Product design. Service design. Design ops. Research — both product and concept. Prototyping and validation. Coaching, mentoring and consulting.
+I also consult for and mentor companies and individuals — whether it's a team that needs design direction, or early-stage founders and designers who need to prioritize the right problem faster.
 Honestly, I do what a design department does. I'm just not a design department — though I usually end up leading one.
 
 ### Where are you based?
