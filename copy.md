@@ -23,7 +23,7 @@ password: 1234
 # Each line becomes one chat bubble, appearing in order.
 # You can write [link text](url) to create a downloadable link inside a bubble.
 
-Hey there, you can either download the [READ.ME](uploads/readme.pdf) file about me,
+Hey there, you can either download the [READ.ME](uploads/cv.pdf) file about me,
 Or select the prompt below to experience a conversation.
 
 
