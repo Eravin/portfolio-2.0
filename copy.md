@@ -113,8 +113,8 @@ booking-context-prompt: One quick thing — are you reaching out on behalf of a 
 booking-company-chip: From a company
 booking-individual-chip: Individual inquiry
 booking-company-input: What's your company called?
-booking-company-reply: Thanks for reaching out, talk soon!
-booking-individual-reply: Thanks for reaching out, talk soon!
+booking-company-reply: Here — pick a slot that works.
+booking-individual-reply: Here — pick a slot that works.
 # Password gate messages — shown when someone taps READ.ME
 password-prompt: What's the access keyword?
 password-placeholder: Enter keyword…

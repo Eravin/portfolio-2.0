@@ -167,6 +167,15 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
 }
 .keyword-input::placeholder { color: var(--muted); }
 
+/* ── CAL EMBED ── */
+.cal-embed-wrap {
+  width: 100%; min-height: 580px;
+  margin-top: 8px;
+  border: 1px solid var(--frame-soft);
+  overflow: hidden;
+}
+.cal-embed-wrap iframe { border: none; }
+
 /* ── TOAST ── */
 .toast {
   position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(12px);
@@ -266,6 +275,13 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
 }
 
 </style>
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "secret", {origin:"https://app.cal.com"});
+  Cal.config = Cal.config || {};
+  Cal.config.forwardQueryParams = true;
+  Cal.ns.secret("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+</script>
 </head>
 <body data-theme="dark">
 
@@ -549,9 +565,15 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
   function requestBookingContext(url) {
     addMessage('them', [lbl('booking-context-prompt', 'One quick thing — are you reaching out on behalf of a company?')]);
     quick.innerHTML = '';
-    function openUrl(base, company) {
-      var final = company ? base + (base.indexOf('?') >= 0 ? '&' : '?') + 'notes=' + encodeURIComponent(company) : base;
-      window.open(final, '_blank');
+    var calEmbedCount = (window._calEmbedCount = (window._calEmbedCount || 0) + 1);
+    function showCalEmbed(company) {
+      var embedId = 'cal-inline-' + calEmbedCount;
+      var wrap = document.createElement('div'); wrap.className = 'cal-embed-wrap';
+      var div = document.createElement('div'); div.id = embedId; div.style.cssText = 'width:100%;height:100%;overflow:scroll';
+      wrap.appendChild(div); log.appendChild(wrap); scrollDown();
+      var cfg = {layout: 'month_view', useSlotsViewOnSmallScreen: 'true'};
+      if (company) cfg.notes = company;
+      Cal.ns.secret('inline', {elementOrSelector: '#' + embedId, config: cfg, calLink: 'arvin-r-lhmeez/secret'});
     }
     function makeChip(text, onClick) {
       var c = document.createElement('button');
@@ -570,16 +592,16 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       function submit() {
         var name = input.value.trim(); if (!name) return;
         quick.innerHTML = '';
-        addMessage('them', [lbl('booking-company-reply', 'Thanks for reaching out, talk soon!')]);
-        setTimeout(function () { openUrl(url, name); }, 600);
+        addMessage('them', [lbl('booking-company-reply', 'Here — pick a slot that works.')]);
+        setTimeout(function () { showCalEmbed(name); }, 600);
       }
       btn.addEventListener('click', submit);
       input.addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
     });
     makeChip(lbl('booking-individual-chip', 'Individual inquiry'), function () {
       quick.innerHTML = '';
-      addMessage('them', [lbl('booking-individual-reply', 'Thanks for reaching out, talk soon!')]);
-      setTimeout(function () { openUrl(url, ''); }, 600);
+      addMessage('them', [lbl('booking-individual-reply', 'Here — pick a slot that works.')]);
+      setTimeout(function () { showCalEmbed(''); }, 600);
     });
   }
 
