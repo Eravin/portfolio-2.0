@@ -14,6 +14,8 @@ name: Arvin
 badge: ACTIVE
 role: Design Leader | Head of CX @PNB, KL
 channel: DOSSIER
+# Password to unlock the READ.ME download. Change this to whatever keyword you want.
+password: placeholder
 
 
 ## Intro
@@ -85,6 +87,8 @@ Give me 15 minutes. Reach out and we'll figure it out from there.
 chip-cta: Book 15 minutes
 chip-restart: Restart
 user-cta: Let's book 15 minutes.
+# Booking URL — replace with your cal.com, Calendly, or any scheduling link.
+booking-url: https://cal.com/arvin/intro
 Perfect. Grab a slot — arvin.design/intro
 Talk soon.
 
@@ -101,3 +105,8 @@ typing: ARVIN · TRANSMITTING
 read-marker: READ
 you-label: YOU
 arvin-label: ARVIN
+# Password gate messages — shown when someone taps READ.ME
+password-prompt: What's the access keyword?
+password-placeholder: Enter keyword…
+password-success: Here you go.
+password-fail: That's not it. Try again.

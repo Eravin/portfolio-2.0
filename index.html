@@ -159,6 +159,14 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
 .msg.me .tag { flex-direction: row-reverse; }
 .msg.me .bubble { background: var(--fill); border: 1px solid var(--fill); color: var(--fill-fg); }
 
+/* ── KEYWORD INPUT (password gate) ── */
+.keyword-input {
+  flex: 1; min-width: 0; border: none; outline: none; background: transparent;
+  font-family: 'Founders Grotesk Mono', monospace; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--fg); padding: 8px 13px; border-right: 1px solid var(--frame-soft);
+}
+.keyword-input::placeholder { color: var(--muted); }
+
 /* ── TOAST ── */
 .toast {
   position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(12px);
@@ -444,7 +452,7 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       var a = document.createElement('a');
       a.className = 'dl'; a.textContent = m[1]; a.href = m[2];
       a.setAttribute('download', ''); a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener');
-      a.addEventListener('click', function (e) { e.preventDefault(); showToast('Coming soon'); });
+      a.addEventListener('click', function (e) { e.preventDefault(); requestPassword(this.href); });
       el.appendChild(a);
       last = m.index + m[0].length;
     }
@@ -493,6 +501,41 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
   }
   function hideTyping() { var t = document.getElementById('typing-row'); if (t) t.remove(); }
 
+  /* ── Password gate ── */
+  function requestPassword(href) {
+    addMessage('them', [lbl('password-prompt', "What's the access keyword?")]);
+    quick.innerHTML = '';
+    var input = document.createElement('input');
+    input.type = 'text'; input.className = 'keyword-input';
+    input.placeholder = lbl('password-placeholder', 'Enter keyword…');
+    input.setAttribute('autocomplete', 'off');
+    input.setAttribute('autocorrect', 'off');
+    input.setAttribute('autocapitalize', 'off');
+    var btn = document.createElement('button');
+    btn.className = 'chip cta'; btn.textContent = '→';
+    quick.appendChild(input); quick.appendChild(btn);
+    setTimeout(function () { input.focus(); }, 50);
+
+    function attempt() {
+      var val = input.value.trim().toLowerCase();
+      var pw = (copy.meta && copy.meta.password || '').trim().toLowerCase();
+      if (pw && val === pw) {
+        quick.innerHTML = '';
+        var a = document.createElement('a');
+        a.href = href; a.setAttribute('download', ''); a.setAttribute('target', '_blank');
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        addMessage('them', [lbl('password-success', 'Here you go.')]);
+        setTimeout(refreshQuick, 600);
+      } else {
+        input.value = '';
+        addMessage('them', [lbl('password-fail', "That's not it. Try again.")]);
+        setTimeout(function () { input.focus(); }, 50);
+      }
+    }
+    btn.addEventListener('click', attempt);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') attempt(); });
+  }
+
   /* ── Chips ── */
   function setQuick(items) {
     quick.innerHTML = '';
@@ -519,7 +562,12 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       addMessage('me', [copy.closing['user-cta']]);
       setQuick([]);
       showTyping();
-      setTimeout(function () { hideTyping(); addMessage('them', copy.closing.reply); }, 1100);
+      setTimeout(function () {
+        hideTyping();
+        addMessage('them', copy.closing.reply);
+        var url = copy.closing['booking-url'];
+        if (url) setTimeout(function () { window.open(url, '_blank'); }, copy.closing.reply.length * 620 + 400);
+      }, 1100);
       return;
     }
     if (finished && text === copy.closing['chip-restart']) { reset(); return; }
