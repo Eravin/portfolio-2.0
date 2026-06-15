@@ -15,7 +15,7 @@ badge: ACTIVE
 role: Design Leader | Head of CX @PNB, KL
 channel: DOSSIER
 # Password to unlock the READ.ME download. Change this to whatever keyword you want.
-password: placeholder
+password: 1234
 
 
 ## Intro
