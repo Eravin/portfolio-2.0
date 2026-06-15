@@ -299,9 +299,6 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
             <button class="ico" id="emailBtn" title="Copy email" aria-label="Copy email address">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
             </button>
-            <button class="ico" title="Menu" aria-label="Menu">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="11" width="16" height="2"/></svg>
-            </button>
           </div>
         </div>
       </div>
@@ -573,7 +570,7 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       function submit() {
         var name = input.value.trim(); if (!name) return;
         quick.innerHTML = '';
-        addMessage('them', [lbl('booking-company-reply', 'See you soon.')]);
+        addMessage('them', [lbl('booking-company-reply', 'Thanks for reaching out, talk soon!')]);
         setTimeout(function () { openUrl(url, name); }, 600);
       }
       btn.addEventListener('click', submit);
@@ -581,7 +578,7 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
     });
     makeChip(lbl('booking-individual-chip', 'Individual inquiry'), function () {
       quick.innerHTML = '';
-      addMessage('them', [lbl('booking-individual-reply', 'See you soon.')]);
+      addMessage('them', [lbl('booking-individual-reply', 'Thanks for reaching out, talk soon!')]);
       setTimeout(function () { openUrl(url, ''); }, 600);
     });
   }
