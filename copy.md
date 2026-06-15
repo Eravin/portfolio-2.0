@@ -91,7 +91,7 @@ chip-restart: Restart
 user-cta: Let's book 15 minutes.
 # Booking URL — replace with your cal.com, Calendly, or any scheduling link.
 booking-url: https://cal.com/arvin/intro
-Perfect. Grab a slot — arvin.design/intro
+Perfect. Grab a slot — typearvin.com/intro
 Talk soon.
 
 

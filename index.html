@@ -332,15 +332,18 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
 
   /* ── Email → clipboard ── */
   document.getElementById('emailBtn').addEventListener('click', function () {
-    var email = 'arvin@arvin.design';
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(email).then(function () { showToast('Email copied'); });
-    } else {
+    var email = 'hello@typearvin.com';
+    function fallbackCopy() {
       var ta = document.createElement('textarea');
       ta.value = email; ta.style.position = 'fixed'; ta.style.opacity = '0';
       document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); showToast('Email copied'); } catch (e) {}
+      try { document.execCommand('copy'); showToast('Email address copied.'); } catch (e) {}
       document.body.removeChild(ta);
+    }
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(email).then(function () { showToast('Email address copied.'); }).catch(fallbackCopy);
+    } else {
+      fallbackCopy();
     }
   });
 
