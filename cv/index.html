@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arvin Rahman — CV</title>
+<style>
+
+/* ── FONTS ── */
+@font-face { font-family: 'Sofia Pro'; src: url('../fonts/SofiaPro-Bold.otf') format('opentype'); font-weight: 700; }
+@font-face { font-family: 'Sofia Pro'; src: url('../fonts/SofiaPro-Regular.otf') format('opentype'); font-weight: 400; }
+@font-face { font-family: 'Lato'; src: url('../fonts/Lato-Regular.ttf') format('truetype'); font-weight: 400; }
+@font-face { font-family: 'Lato'; src: url('../fonts/Lato-Light.ttf') format('truetype'); font-weight: 300; }
+@font-face { font-family: 'Mono'; src: url('../fonts/TestFoundersGroteskMono-Regular.otf') format('opentype'); font-weight: 400; }
+@font-face { font-family: 'Mono'; src: url('../fonts/TestFoundersGroteskMono-Light.otf') format('opentype'); font-weight: 300; }
+
+/* ── TOKENS — LIGHT ── */
+:root {
+  --bg:          #F7F7F3;
+  --surface:     #FAFAF8;
+  --surface2:    #FEFEFE;
+  --fg:          #1C1B1D;
+  --fg-bright:   #0E0D0F;
+  --muted:       rgba(28,27,29,0.62);
+  --dim:         rgba(28,27,29,0.30);
+  --border:      rgba(28,27,29,0.13);
+  --border-mid:  rgba(28,27,29,0.24);
+  --accent:      #3DA820;
+  --accent-dim:  rgba(61,168,32,0.07);
+  --accent-line: rgba(61,168,32,0.25);
+}
+
+/* ── RESET ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── PAGE ── */
+html {
+  background: #000;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-size: 9pt;
+  line-height: 1.6;
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  width: 210mm;
+  min-height: 297mm;
+  position: relative;
+}
+
+/* scan lines */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(28,27,29,0.018) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+/* left accent bar */
+.bar {
+  position: fixed;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  background: var(--accent);
+  z-index: 10;
+}
+
+/* ── LAYOUT ── */
+.page {
+  padding: 22pt 24pt 20pt 20pt;
+  display: flex;
+  flex-direction: column;
+  gap: 13pt;
+}
+
+/* ── HEADER ── */
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 16pt;
+  padding-bottom: 13pt;
+  border-bottom: 1px solid var(--border-mid);
+}
+
+.name {
+  font-family: 'Sofia Pro', sans-serif;
+  font-weight: 700;
+  font-size: 40pt;
+  color: var(--fg-bright);
+  letter-spacing: -0.025em;
+  line-height: 0.92;
+}
+
+.name-sub {
+  font-family: 'Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 9pt;
+}
+
+.header-right {
+  text-align: right;
+  font-family: 'Mono', monospace;
+  font-size: 7pt;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.header-right a { color: var(--muted); text-decoration: none; }
+
+/* ── STAT STRIP ── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7pt;
+}
+
+.stat {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  padding: 12pt;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.stat::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--border-mid);
+  opacity: 1;
+}
+
+.stat-n {
+  font-family: 'Sofia Pro', sans-serif;
+  font-weight: 700;
+  font-size: 26pt;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--fg-bright);
+  display: flex;
+  align-items: center;
+  gap: 4pt;
+}
+
+.stat-n.green { color: var(--accent); }
+
+.stat-l {
+  font-family: 'Mono', monospace;
+  font-size: 6.5pt;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4pt;
+  line-height: 1.55;
+}
+
+/* ── POSITIONING ── */
+.positioning {
+  font-size: 9pt;
+  line-height: 1.65;
+  color: var(--fg);
+  padding-left: 11pt;
+  border-left: 2px solid var(--border-mid);
+}
+
+/* ── SECTION HEADER ── */
+.section-h {
+  font-family: 'Mono', monospace;
+  font-size: 7pt;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 10pt;
+  margin-bottom: 10pt;
+}
+.section-h::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── ROLES ── */
+.roles { display: flex; flex-direction: column; gap: 11pt; }
+
+.role {
+  display: grid;
+  grid-template-columns: 1fr 148pt;
+  gap: 12pt;
+  align-items: start;
+}
+
+.role.compact { grid-template-columns: 1fr; }
+
+.role-divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* role left */
+.r-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2pt;
+}
+
+.r-company {
+  font-family: 'Sofia Pro', sans-serif;
+  font-weight: 700;
+  font-size: 11.5pt;
+  color: var(--fg-bright);
+  letter-spacing: -0.015em;
+}
+
+.r-dates {
+  font-family: 'Mono', monospace;
+  font-size: 7pt;
+  letter-spacing: 0.09em;
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-left: 8pt;
+}
+
+.r-title {
+  font-family: 'Mono', monospace;
+  font-size: 7.5pt;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4pt;
+}
+
+.r-context {
+  font-size: 7.5pt;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 5pt;
+}
+
+.r-body {
+  font-size: 8.5pt;
+  line-height: 1.65;
+  color: var(--fg);
+}
+
+.r-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3pt;
+  margin-top: 6pt;
+}
+
+.tag {
+  font-family: 'Mono', monospace;
+  font-size: 6.5pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 1.5pt 5pt;
+}
+
+.tag.hi {
+  color: var(--accent);
+  border-color: var(--accent-line);
+}
+
+/* ── CALLOUT BOX ── */
+.callout {
+  border: 1px solid var(--border-mid);
+  background: var(--surface);
+  padding: 10pt 11pt;
+  align-self: start;
+}
+
+.c-stat {
+  font-family: 'Sofia Pro', sans-serif;
+  font-weight: 700;
+  font-size: 21pt;
+  color: var(--accent);
+  letter-spacing: -0.025em;
+  line-height: 1;
+  margin-bottom: 3pt;
+}
+
+.c-label {
+  font-family: 'Mono', monospace;
+  font-size: 6.5pt;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.c-body {
+  font-size: 7.5pt;
+  color: var(--muted);
+  margin-top: 6pt;
+  padding-top: 6pt;
+  border-top: 1px solid var(--border);
+  line-height: 1.55;
+}
+
+/* ── SIDE BY SIDE (Fave / dahmakan) ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14pt;
+}
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border-mid);
+  padding-top: 11pt;
+  display: grid;
+  grid-template-columns: 1.6fr 0.9fr 0.9fr auto;
+  gap: 14pt;
+  align-items: start;
+}
+
+.f-label {
+  font-family: 'Mono', monospace;
+  font-size: 6.5pt;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 5pt;
+}
+
+.f-label + .f-label { margin-top: 9pt; }
+
+.f-tags { display: flex; flex-wrap: wrap; gap: 3pt; }
+
+.f-body {
+  font-size: 7.5pt;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.cta {
+  text-align: right;
+  padding-left: 8pt;
+  border-left: 1px solid var(--border);
+}
+
+.cta-line {
+  font-family: 'Sofia Pro', sans-serif;
+  font-weight: 700;
+  font-size: 10pt;
+  color: var(--fg-bright);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin-bottom: 5pt;
+}
+
+.cta-detail {
+  font-family: 'Mono', monospace;
+  font-size: 7pt;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+/* ── PRINT ── */
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body::before { display: none; }
+  .bar { position: absolute; }
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="bar"></div>
+
+<div class="page">
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <div>
+      <div class="name">Arvin<br>Design Leader</div>
+      <div class="name-sub">Head of Customer Experience</div>
+    </div>
+    <div class="header-right">
+      <div>Kuala Lumpur</div>
+      <div>Available globally</div>
+      <div style="margin-top:6pt;"><a href="https://arvin.design">arvin.design</a></div>
+      <div><a href="mailto:arvin@arvin.design">arvin@arvin.design</a></div>
+      <div><a href="https://linkedin.com/in/arvin">LinkedIn</a></div>
+    </div>
+  </header>
+
+  <!-- ── STATS ── -->
+  <div class="stats">
+
+    <div class="stat">
+      <div class="stat-n">30<span style="font-size:18pt;opacity:0.5;margin:0 2pt;">&rarr;</span>66 <span style="font-size:8pt;font-family:'Mono';letter-spacing:0.12em;opacity:0.7;line-height:1;">NPS</span></div>
+      <div class="stat-l">Number one in Malaysia&rsquo;s<br>investment fund industry &middot; 2025</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-n">88.56% <span style="font-size:8pt;font-family:'Mono';letter-spacing:0.12em;opacity:0.7;line-height:1;">CSAT</span></div>
+      <div class="stat-l">Digital &middot; Branch &middot; Call Centre<br>First cross-channel baseline &middot; Year one</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-n">3<span style="font-size:18pt;opacity:0.5;">&times;</span> <span style="font-size:8pt;font-family:'Mono';letter-spacing:0.12em;opacity:0.7;line-height:1;">SUPER APP</span></div>
+      <div class="stat-l">Commerce &middot; Banking &middot; Fintech<br>Team &amp; design systems, built from zero</div>
+    </div>
+
+  </div>
+
+  <!-- ── POSITIONING ── -->
+  <p class="positioning">
+    CX and Product Design leader with over a decade of experience &mdash; from pre-seeded startups to national institutions. Twice built functions from zero inside the same ecosystem: spent four years at Jewel Digital building the digital products, then stepped into PNB to govern and optimise the customer experience of those same products for the same users. Design side, then CX side. Same institution. Same 22 million people. A complete view of the entire customer journey within the ecosystem.
+  </p>
+
+  <!-- ── EXPERIENCE ── -->
+  <div>
+    <div class="section-h">Experience</div>
+    <div class="roles">
+
+      <!-- PNB -->
+      <div class="role">
+        <div>
+          <div class="r-top">
+            <div class="r-company">PNB (Permodalan Nasional Berhad)</div>
+            <div class="r-dates">Mar 2025 &ndash; Present</div>
+          </div>
+          <div class="r-title">Head of Customer Experience</div>
+          <div class="r-context">Malaysia&rsquo;s largest government-linked fund management group. The CX function did not exist &mdash; built from scratch with an explicit mandate to professionalise customer experience as a strategic discipline inside a national institution.</div>
+          <div class="r-body">Built the CX function from inception: governance models, performance reporting frameworks, cross-departmental ownership structures, and feedback loops across all business units. Designed and implemented the organisation&rsquo;s first consolidated weighted CSAT methodology &mdash; the first cross-channel baseline PNB had ever produced. Introduced the CX Scorecard linking operational KPIs (resolution times, error rates, onboarding completion) directly to experience outcomes. Implemented VoC programs consolidating feedback from app, web, call centre, branch, and social into a single insight pipeline feeding product and operations planning. Responsible for the end-to-end customer experience across 22M+ users: 14.7M digital, 7.5M branch and agent.</div>
+          <div class="r-tags">
+            <span class="tag hi">CX Strategy &amp; Governance</span>
+            <span class="tag hi">VoC Programs</span>
+            <span class="tag">CX Measurement</span>
+            <span class="tag">Cross-channel Experience</span>
+            <span class="tag">Journey Redesign</span>
+            <span class="tag">Stakeholder Alignment</span>
+          </div>
+        </div>
+        <div class="callout">
+          <div class="c-stat" style="font-size:13pt;letter-spacing:-0.01em;">Built from zero.<br>Highest in the industry.</div>
+          <div class="c-label" style="margin-top:5pt;">NPS 66 &middot; #1 in Malaysia&rsquo;s investment fund industry<br>Tabung Haji 64 &middot; EPF 63 &middot; 2025</div>
+          <div class="c-body">88.56% weighted CSAT &mdash; first-ever cross-channel baseline. CX Composite Index: 78.7 &rarr; 81.2 (Excellent band). App store CSAT: 61% &rarr; 74%.</div>
+        </div>
+      </div>
+
+      <div class="role-divider"></div>
+
+      <!-- JEWEL -->
+      <div class="role">
+        <div>
+          <div class="r-top">
+            <div class="r-company">Jewel Digital Ventures</div>
+            <div class="r-dates">Feb 2021 &ndash; Feb 2025</div>
+          </div>
+          <div class="r-title">Head of Product Design</div>
+          <div class="r-context">Digital arm and innovation lab of PNB &mdash; building a financial wellness ecosystem for 30 million people. The design chapter: built the products that the CX chapter would later govern and optimise.</div>
+          <div class="r-body">Built the multidisciplinary product design team from zero &mdash; hiring and developing designers, UX researchers, and CX specialists, establishing team culture, workflows, and quality standards. Designed and scaled end-to-end digital ecosystems across investment platforms, onboarding flows, account management tools, and financial service experiences. Led moonshot projects from early proof-of-concept through to market-ready products. Established design systems, component libraries, and research frameworks that reduced duplication and accelerated delivery. Embedded user-centred design practices across engineering, product, and business teams.</div>
+          <div class="r-tags">
+            <span class="tag hi">Product Design Leadership</span>
+            <span class="tag hi">Design Systems</span>
+            <span class="tag">Moonshot Projects</span>
+            <span class="tag">Fintech</span>
+            <span class="tag">Investment Products</span>
+            <span class="tag">Innovation Culture</span>
+          </div>
+        </div>
+        <div class="callout">
+          <div class="c-stat" style="font-size:13pt;letter-spacing:-0.01em;">Consumer &middot; Investment &middot; Ecosystem</div>
+          <div class="c-label">Designed for market share<br>NPS 30 &rarr; 66 &middot; 2021&ndash;2025</div>
+          <div class="c-body">Drove design and innovation for a large-scale user base. The digital products shaped here are directly traceable to the NPS trajectory &mdash; now the highest in Malaysia&rsquo;s investment fund industry.</div>
+        </div>
+      </div>
+
+      <div class="role-divider"></div>
+
+      <!-- MAYBANK -->
+      <div class="role">
+        <div>
+          <div class="r-top">
+            <div class="r-company">Maybank</div>
+            <div class="r-dates">Jun 2020 &ndash; Feb 2021</div>
+          </div>
+          <div class="r-title">Assistant Vice President, UX/UI</div>
+          <div class="r-context">Malaysia&rsquo;s largest bank. MAE and Maybank2U &mdash; the most widely used consumer banking apps in Malaysia, serving millions of retail customers.</div>
+          <div class="r-body">Led UX design across MAE and Maybank2U, driving usability enhancements to core banking flows including account management, fund transfers, bill payments, and financial product discovery. Directed a cross-functional design team across multiple product verticals. Pioneered lifestyle-centric banking experiences &mdash; integrating payments, rewards, and everyday activities into cohesive app experiences, repositioning Maybank&rsquo;s products as daily-use tools. Drove design system adoption and consistency across digital platforms. Contributed to merchant banking design experiences.</div>
+          <div class="r-tags">
+            <span class="tag hi">MAE &middot; Maybank2U</span>
+            <span class="tag">Lifestyle Banking</span>
+            <span class="tag">Design Systems</span>
+            <span class="tag">Merchant Banking</span>
+            <span class="tag">Team Leadership</span>
+          </div>
+        </div>
+        <div class="callout">
+          <div class="c-stat" style="font-size:13pt;letter-spacing:-0.01em;">Consumer &middot; Merchant &middot; Systems</div>
+          <div class="c-label">UX across banking, payments &amp; design systems<br>Malaysia&rsquo;s largest bank</div>
+          <div class="c-body">MAE and Maybank2U &mdash; the most-used consumer banking apps in Malaysia. Lifestyle banking as a genuine design problem, not a branding exercise.</div>
+        </div>
+      </div>
+
+      <div class="role-divider"></div>
+
+      <!-- FAVE + DAHMAKAN -->
+      <div class="two-col">
+
+        <div class="role compact">
+          <div>
+            <div class="r-top">
+              <div class="r-company">Fave</div>
+              <div class="r-dates">Jul 2018 &ndash; Jun 2020</div>
+            </div>
+            <div class="r-title">Lead Product Designer</div>
+            <div class="r-context">Digital commerce, cashback &amp; payments &mdash; Malaysia, Singapore, Indonesia.</div>
+            <div class="r-body">Directed the end-to-end redesign across Malaysia, Singapore, and Indonesia &mdash; e-wallet and payments design, design systems, and a rapid experimentation practice built from scratch.</div>
+            <div class="r-tags">
+              <span class="tag hi">Creative Designer of the Year &middot; 2019</span>
+              <span class="tag">E-Wallet</span>
+              <span class="tag">3 Markets</span>
+              <span class="tag">Design Systems</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="role compact">
+          <div>
+            <div class="r-top">
+              <div class="r-company">dahmakan</div>
+              <div class="r-dates">Mar 2018 &ndash; Feb 2019</div>
+            </div>
+            <div class="r-title">Product Designer &middot; YC W17</div>
+            <div class="r-context">Malaysia&rsquo;s first farm-to-fork food delivery platform &mdash; Y Combinator-backed.</div>
+            <div class="r-body">Designed the full consumer digital experience &mdash; meal discovery, subscriptions, and delivery scheduling. Embedded directly with founders in a fast-paced zero-to-one environment.</div>
+            <div class="r-tags">
+              <span class="tag hi">YC-backed</span>
+              <span class="tag">Zero-to-one</span>
+              <span class="tag">Subscription UX</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+
+    <div>
+      <div class="f-label">Capabilities</div>
+      <div class="f-tags">
+        <span class="tag hi">CX Strategy</span>
+        <span class="tag hi">Product Design</span>
+        <span class="tag hi">Service Design</span>
+        <span class="tag">Design Ops</span>
+        <span class="tag">VoC Programs</span>
+        <span class="tag">Design Systems</span>
+        <span class="tag">UX Research</span>
+        <span class="tag">Prototyping</span>
+        <span class="tag">Team Building</span>
+        <span class="tag">Mentoring</span>
+        <span class="tag">Consulting</span>
+        <span class="tag">Sound Design</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="f-label">Education</div>
+      <div class="f-body">BSc Computer Science</div>
+      <div class="f-label" style="margin-top:8pt;">Awards</div>
+      <div class="f-body">Creative Designer of the Year &mdash; Fave, 2019<br>3M Avant-Garde Competition &mdash; 2016</div>
+    </div>
+
+    <div>
+      <div class="f-label">Languages</div>
+      <div class="f-body">English &mdash; Native<br>Norwegian Bokm&aring;l &mdash; Professional<br>Swedish &middot; German &middot; Greek</div>
+    </div>
+
+    <div class="cta">
+      <div class="cta-line">Let&rsquo;s have<br>a quick chat.</div>
+      <div class="cta-detail">arvin.design/intro<br>arvin@arvin.design</div>
+    </div>
+
+  </footer>
+
+</div>
+
+</body>
+</html>
