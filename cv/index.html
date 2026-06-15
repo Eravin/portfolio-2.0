@@ -387,17 +387,21 @@ body::before {
 
 /* ── PRINT ── */
 @media print {
+  html {
+    background: var(--bg);
+  }
   html, body {
     width: 210mm;
-    height: 297mm;
+    height: auto;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  body::before { display: none; }
+  body::before { display: none !important; }
   .bar { position: absolute; }
   @page {
     size: A4;
     margin: 0;
+    background: var(--bg);
   }
 }
 
