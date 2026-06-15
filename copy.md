@@ -108,6 +108,14 @@ read-marker: READ
 you-label: YOU
 arvin-label: ARVIN
 # Password gate messages — shown when someone taps READ.ME
+# Booking context — shown after "Book 15 minutes" is clicked
+booking-context-prompt: One quick thing — are you reaching out on behalf of a company?
+booking-company-chip: From a company
+booking-individual-chip: Individual inquiry
+booking-company-input: What's your company called?
+booking-company-reply: See you soon.
+booking-individual-reply: See you soon.
+# Password gate messages — shown when someone taps READ.ME
 password-prompt: What's the access keyword?
 password-placeholder: Enter keyword…
 password-success: Here you go.

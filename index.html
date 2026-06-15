@@ -548,6 +548,44 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
     input.addEventListener('keydown', function (e) { if (e.key === 'Enter') attempt(); });
   }
 
+  /* ── Booking context (company vs individual) ── */
+  function requestBookingContext(url) {
+    addMessage('them', [lbl('booking-context-prompt', 'One quick thing — are you reaching out on behalf of a company?')]);
+    quick.innerHTML = '';
+    function openUrl(base, company) {
+      var final = company ? base + (base.indexOf('?') >= 0 ? '&' : '?') + 'notes=' + encodeURIComponent(company) : base;
+      window.open(final, '_blank');
+    }
+    function makeChip(text, onClick) {
+      var c = document.createElement('button');
+      c.className = 'chip'; c.textContent = text;
+      c.addEventListener('click', onClick); quick.appendChild(c);
+    }
+    makeChip(lbl('booking-company-chip', 'From a company'), function () {
+      quick.innerHTML = '';
+      var input = document.createElement('input');
+      input.type = 'text'; input.className = 'keyword-input';
+      input.placeholder = lbl('booking-company-input', "What's your company called?");
+      input.setAttribute('autocomplete', 'off'); input.setAttribute('autocorrect', 'off'); input.setAttribute('autocapitalize', 'words');
+      var btn = document.createElement('button'); btn.className = 'chip cta'; btn.textContent = '→';
+      quick.appendChild(input); quick.appendChild(btn);
+      setTimeout(function () { input.focus(); }, 50);
+      function submit() {
+        var name = input.value.trim(); if (!name) return;
+        quick.innerHTML = '';
+        addMessage('them', [lbl('booking-company-reply', 'See you soon.')]);
+        setTimeout(function () { openUrl(url, name); }, 600);
+      }
+      btn.addEventListener('click', submit);
+      input.addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
+    });
+    makeChip(lbl('booking-individual-chip', 'Individual inquiry'), function () {
+      quick.innerHTML = '';
+      addMessage('them', [lbl('booking-individual-reply', 'See you soon.')]);
+      setTimeout(function () { openUrl(url, ''); }, 600);
+    });
+  }
+
   /* ── Chips ── */
   function setQuick(items) {
     quick.innerHTML = '';
@@ -578,7 +616,7 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
         hideTyping();
         addMessage('them', copy.closing.reply);
         var url = copy.closing['booking-url'];
-        if (url) setTimeout(function () { window.open(url, '_blank'); }, copy.closing.reply.length * 620 + 400);
+        if (url) setTimeout(function () { requestBookingContext(url); }, copy.closing.reply.length * 620 + 400);
       }, 1100);
       return;
     }
