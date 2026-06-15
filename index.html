@@ -167,6 +167,16 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
 }
 .keyword-input::placeholder { color: var(--muted); }
 
+/* ── PERSISTENT BOOK BAR ── */
+.book-bar {
+  background: var(--panel-bg); border-top: 1px solid var(--frame-soft);
+  padding: 10px 14px 0; transition: background .3s;
+}
+.book-btn {
+  opacity: 0.55;
+}
+.book-btn:hover { opacity: 1; }
+
 /* ── CAL EMBED ── */
 .cal-embed-wrap {
   width: 100%; min-height: 580px;
@@ -320,6 +330,9 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       </div>
 
       <div class="log" id="log"></div>
+      <div class="book-bar">
+        <button class="chip book-btn" id="bookBtn">Book 15 minutes</button>
+      </div>
       <div class="quick" id="quick"></div>
 
     </div>
@@ -342,6 +355,12 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
     toast.classList.add('show');
     toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
   }
+
+  /* ── Persistent book button ── */
+  document.getElementById('bookBtn').addEventListener('click', function () {
+    var url = (copy && copy.closing && copy.closing['booking-url']) || 'https://cal.com/arvin-r-lhmeez';
+    requestBookingContext(url);
+  });
 
   /* ── Email → clipboard ── */
   document.getElementById('emailBtn').addEventListener('click', function () {
