@@ -14,6 +14,8 @@ name: Arvin
 badge: ACTIVE
 role: Design Leader | Head of CX @PNB, KL
 channel: DOSSIER
+# Password gate — set to "on" to require a keyword before the READ.ME downloads, "off" to download directly.
+password-gate: off
 # Password to unlock the READ.ME download. Change this to whatever keyword you want.
 password: 1234
 

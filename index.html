@@ -452,7 +452,16 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       var a = document.createElement('a');
       a.className = 'dl'; a.textContent = m[1]; a.href = m[2];
       a.setAttribute('download', ''); a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener');
-      a.addEventListener('click', function (e) { e.preventDefault(); requestPassword(this.href); });
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        if ((copy.meta && copy.meta['password-gate']) === 'on') {
+          requestPassword(this.href);
+        } else {
+          var tmp = document.createElement('a');
+          tmp.href = this.href; tmp.setAttribute('download', ''); tmp.setAttribute('target', '_blank');
+          document.body.appendChild(tmp); tmp.click(); document.body.removeChild(tmp);
+        }
+      });
       el.appendChild(a);
       last = m.index + m[0].length;
     }
