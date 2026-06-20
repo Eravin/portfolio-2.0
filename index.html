@@ -167,13 +167,10 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
 }
 .keyword-input::placeholder { color: var(--muted); }
 
-/* ── PERSISTENT BOOK BAR ── */
-.book-bar {
-  background: var(--panel-bg); border-top: 1px solid var(--frame-soft);
-  padding: 10px 14px 0; transition: background .3s;
-}
 .book-btn {
   opacity: 0.55;
+  margin-left: 15px;
+  margin-right: 0;
 }
 .book-btn:hover { opacity: 1; }
 
@@ -218,7 +215,6 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
   background: var(--panel-bg); border-top: 1px solid var(--frame-soft);
   padding: 10px 14px 12px; transition: background .3s;
 }
-.quick:empty { display: none; }
 .chip {
   font-family: 'Founders Grotesk Mono', monospace; font-size: 11px;
   letter-spacing: 0.06em; text-transform: uppercase;
@@ -330,10 +326,9 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       </div>
 
       <div class="log" id="log"></div>
-      <div class="book-bar">
-        <button class="chip book-btn" id="bookBtn">Book 15 minutes</button>
+      <div class="quick" id="quick">
+        <button class="chip book-btn" id="bookBtn">Book a quick chat.</button>
       </div>
-      <div class="quick" id="quick"></div>
 
     </div>
   </div>
@@ -581,10 +576,28 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
   }
 
   /* ── Booking context (company vs individual) ── */
+  var bookingActive = false;
   function requestBookingContext(url) {
+    if (bookingActive) return;
+    bookingActive = true;
+    document.getElementById('bookBtn').style.display = 'none';
     addMessage('them', [lbl('booking-context-prompt', 'One quick thing — are you reaching out on behalf of a company?')]);
-    quick.innerHTML = '';
+    setQuick([]);
     var calEmbedCount = (window._calEmbedCount = (window._calEmbedCount || 0) + 1);
+    function addSlotReply(company) {
+      var finalUrl = url + (company ? (url.indexOf('?') >= 0 ? '&' : '?') + 'notes=' + encodeURIComponent(company) : '');
+      var row = document.createElement('div'); row.className = 'msg them';
+      var tag = document.createElement('div'); tag.className = 'tag';
+      var ts = document.createElement('span'); ts.textContent = lbl('arvin-label', 'ARVIN');
+      tag.appendChild(ts);
+      var b = document.createElement('div'); b.className = 'bubble';
+      b.appendChild(document.createTextNode('Perfect. Grab a '));
+      var a = document.createElement('a'); a.href = finalUrl; a.textContent = 'slot';
+      a.target = '_blank'; a.rel = 'noopener'; a.className = 'dl';
+      b.appendChild(a); b.appendChild(document.createTextNode('.'));
+      row.appendChild(tag); row.appendChild(b);
+      log.appendChild(row); scrollDown();
+    }
     function showCalEmbed(company) {
       var embedId = 'cal-inline-' + calEmbedCount;
       var wrap = document.createElement('div'); wrap.className = 'cal-embed-wrap';
@@ -600,7 +613,7 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       c.addEventListener('click', onClick); quick.appendChild(c);
     }
     makeChip(lbl('booking-company-chip', 'From a company'), function () {
-      quick.innerHTML = '';
+      setQuick([]);
       var input = document.createElement('input');
       input.type = 'text'; input.className = 'keyword-input';
       input.placeholder = lbl('booking-company-input', "What's your company called?");
@@ -610,22 +623,23 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       setTimeout(function () { input.focus(); }, 50);
       function submit() {
         var name = input.value.trim(); if (!name) return;
-        quick.innerHTML = '';
-        addMessage('them', [lbl('booking-company-reply', 'Here — pick a slot that works.')]);
+        setQuick([]);
+        addSlotReply(name);
         setTimeout(function () { showCalEmbed(name); }, 600);
       }
       btn.addEventListener('click', submit);
       input.addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
     });
     makeChip(lbl('booking-individual-chip', 'Individual inquiry'), function () {
-      quick.innerHTML = '';
-      addMessage('them', [lbl('booking-individual-reply', 'Here — pick a slot that works.')]);
+      setQuick([]);
+      addSlotReply('');
       setTimeout(function () { showCalEmbed(''); }, 600);
     });
   }
 
   /* ── Chips ── */
   function setQuick(items) {
+    var bb = document.getElementById('bookBtn');
     quick.innerHTML = '';
     items.forEach(function (it) {
       var c = document.createElement('button');
@@ -634,11 +648,12 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       c.addEventListener('click', function () { onChip(it.t); });
       quick.appendChild(c);
     });
+    if (bb) quick.appendChild(bb);
   }
 
   function refreshQuick() {
     if (step < convo.length) {
-      setQuick([{ t: convo[step].q }]);
+      setQuick([{ t: convo[step].q, cta: true }]);
     } else if (!finished) {
       finished = true;
       setQuick([{ t: copy.closing['chip-cta'], cta: true }, { t: copy.closing['chip-restart'] }]);
@@ -652,9 +667,8 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
       showTyping();
       setTimeout(function () {
         hideTyping();
-        addMessage('them', copy.closing.reply);
         var url = copy.closing['booking-url'];
-        if (url) setTimeout(function () { requestBookingContext(url); }, copy.closing.reply.length * 620 + 400);
+        if (url) requestBookingContext(url);
       }, 1100);
       return;
     }
@@ -675,7 +689,9 @@ body { font-family: 'Lato', sans-serif; color: var(--fg); background: var(--bg);
 
   function reset() {
     cycleTimers.forEach(clearInterval); cycleTimers = [];
-    log.innerHTML = ''; step = 0; finished = false; seed();
+    log.innerHTML = ''; step = 0; finished = false; bookingActive = false;
+    var bb = document.getElementById('bookBtn'); if (bb) bb.style.display = '';
+    seed();
   }
 
   /* ── Cycling word ── */

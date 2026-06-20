@@ -40,7 +40,7 @@ Or select the prompt below to experience a conversation.
 # To remove an exchange, delete the ### heading and its reply lines.
 # The chips appear in the order they are listed here.
 
-### Tell me a bit more about yourself
+### Tell me about yourself.
 I'm a product designer with a background spanning various disciplines. 
 For as far as I can remember, I've always been involved in some phase of design, from graphic interface to my current focus on experience and service design. — I've worked behind some of the most pioneering technologies in this region and have had the privilege to lead the teams behind them. 
 
@@ -53,29 +53,29 @@ At PNB — Malaysia's largest asset manager — I built the CX department from t
 We boosted our NPS +15 and baselined a CSAT of 88.56% across digital, branch, and call centre within our first year of operation. Highest in the Malaysian investment fund industry.
 
 ### And before that?
-Jewel Digital — the innovation arm of that same institution. Built the product design org from zero. Designers, researchers, CX specialists.
-We were designing for 15 million target users. Investment platforms, onboarding, account management, design systems — the whole ecosystem.
+Lead the innovation arm of that same institution. Built the product design org from zero. Designers, researchers, CX specialists.
+We were designing for 15M+ users. Investment platforms, onboarding, account management, design systems — the entire ecosystem.
 
 ### Keep going.
 At Maybank I led UX on MAE and Maybank2U — the most widely used banking apps in Malaysia.
 Before that, Fave — commerce and payments across Malaysia, Singapore and Indonesia. And earlier, dahmakan, a YC-backed food delivery startup where I was the product designer.
 
 ### Across which industries?
-Mostly Fintech but I've worked on a number of Super-Apps, I would say my skills are industry agnostic. 
+Mostly Fintech but I've worked on a number of Super-Apps across lifestyle and commerce, I would say my skills are industry agnostic. 
 I've done both ends. 
 The scrappy zero-to-one phase and the scaling-inside-a-giant phase. Different problems, same discipline.
 
-### What exactly do you offer?
-CX strategy. Product design. Service design. Design ops. Research — both product and concept. Prototyping and validation. Coaching, mentoring and consulting.
-I also consult for and mentor companies and individuals — whether it's a team that needs design direction, or early-stage founders and designers who need to prioritize the right problem faster.
-Honestly, I do what a design department does. I'm just not a design department — though I usually end up leading one.
+### What skills/services do you offer?
+CX strategy. Product design. Service design. Design ops. Research — both product and concept. Prototyping and validation.
+I also consult for and mentor companies and individuals — whether it's a team that needs design direction, or early-stage founders who need to prioritize the right problem faster.
+I do what a design department does. I'm just not a design department — though I usually end up leading one.
 
 ### Where are you based?
 Kuala Lumpur. But I've worked across Singapore, Jakarta, Oslo and Germany.
-The work has always been regional.
+The work has always been across borders for me.
 
 ### How do we find out if we're a good fit?
-Give me 15 minutes. Reach out and we'll figure it out from there.
+How about we set up a quick 15-minute call and we'll figure it out from there.
 
 
 ## Closing
@@ -86,13 +86,12 @@ Give me 15 minutes. Reach out and we'll figure it out from there.
 # `user-cta`     — the message that appears as the visitor's bubble when they click the CTA chip.
 # The plain text lines below are Arvin's closing reply bubbles (same rules as conversation).
 
-chip-cta: Book 15 minutes
+chip-cta: Book a quick chat.
 chip-restart: Restart
-user-cta: Let's book 15 minutes.
+user-cta: Let's book a quick chat.
 # Booking URL — replace with your cal.com, Calendly, or any scheduling link.
 booking-url: https://cal.com/arvin-r-lhmeez
-Perfect. Grab a slot — cal.com/arvin-r-lhmeez
-Talk soon.
+Perfect.
 
 
 ## Labels
